@@ -1,0 +1,159 @@
+/* Global styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif; /* Updated font */
+  transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition */
+}
+
+/* App layout */
+.app {
+  display: flex;
+  height: 100vh;
+  transition: background-color 0.5s ease; /* Smooth transition for app */
+  position: relative; /* For positioning profile and share buttons */
+}
+
+/* Dark and light themes with gradients */
+body.dark {
+  background: linear-gradient(to bottom, #000000, #001f3f); /* Black to navy blue gradient */
+  color: #00ff00; /* Neon lime text for dark theme */
+}
+
+body.light {
+  background: linear-gradient(to bottom, #b2ebf2, #80deea); /* Bright pastel gradient */
+  color: #2c3e50; /* Dark color for better contrast */
+}
+
+/* Profile icon */
+.profile-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px; /* Increased size */
+  height: 50px; /* Increased size */
+  border-radius: 50%; /* Circular shape */
+  background-color: #ffffff; /* Background for visibility */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow */
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.profile-icon:hover {
+  transform: scale(1.1); /* Slight zoom on hover */
+}
+
+/* Share conversation button */
+.share-conversation {
+  position: absolute;
+  top: 20px;
+  right: 80px; /* Positioned before the profile icon */
+  padding: 10px 15px;
+  background-color: #6c757d;
+  color: #fff;
+  border-radius: 30px; /* Curvy button */
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.share-conversation:hover {
+  background-color: #5a6268;
+}
+
+/* Logo placement */
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%); /* Center the logo */
+  width: 100px;
+  height: auto;
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 250px;
+  padding: 20px;
+  background: linear-gradient(to bottom, #ffffff, #e0f7fa); /* Clear light gradient for sidebar */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* More pronounced shadow for depth */
+  color: #2c3e50; /* Dark text for light theme */
+  border-radius: 8px; /* Rounded corners */
+  transition: background 0.5s ease, color 0.5s ease; /* Smooth transition */
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  justify-content: space-between; /* Distribute space */
+}
+
+/* Settings and Close Sidebar buttons */
+.sidebar-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Space between buttons */
+  margin-top: auto; /* Push buttons to bottom */
+}
+
+.sidebar-button {
+  padding: 15px 20px;
+  background-color: #6c757d;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  border-radius: 30px; /* Curvy buttons */
+  font-size: 1rem;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  margin-bottom: 10px; /* Slight margin between buttons */
+  display: block; /* Ensure block layout */
+}
+
+.sidebar-button:hover {
+  background-color: #5a6268;
+}
+
+/* Make buttons larger */
+.sidebar-button.large {
+  padding: 20px 25px;
+  font-size: 1.2rem;
+}
+
+/* Sidebar Dark theme */
+body.dark .sidebar {
+  background: linear-gradient(to bottom, rgba(24, 24, 24, 0.9), rgba(48, 48, 48, 0.9)); /* Dark gradient for sidebar */
+  color: #00ff00; /* Neon lime text for dark theme */
+}
+
+body.dark .sidebar-button {
+  background-color: #333333;
+}
+
+body.dark .sidebar-button:hover {
+  background-color: #444444;
+}
+
+/* Chat interface styles */
+.chat-interface {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background: linear-gradient(to bottom, #ffffff, #b2ebf2); /* Clear light gradient for chat interface */
+  color: #2c3e50; /* Dark text */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* More pronounced shadow for depth */
+  transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition */
+}
+
+/* Dark theme styles for chat interface */
+body.dark .chat-interface {
+  background: linear-gradient(to bottom, rgba(30, 30, 30, 0.9), rgba(48, 48, 48, 0.9)); /* Dark gradient with slight transparency */
+  color: #00ff00; /* Neon lime text for dark theme */
+}
+
+/* Adjustments for larger chat interface */
+.chat-interface.large {
+  padding: 30px;
+  font-size: 1.1rem;
+}
+
