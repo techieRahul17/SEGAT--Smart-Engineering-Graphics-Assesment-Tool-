@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   FaMicrophone,
   FaUserCircle,
@@ -21,6 +21,12 @@ const MainContent = () => {
     resultData,
     onSent,
   } = useContext(Context);
+
+  const [isDarkTheme, setIsDarkTheme] = useState(false); // Managing theme state
+
+  const handleThemeToggle = () => {
+    setIsDarkTheme((prevTheme) => !prevTheme); // Toggle theme state
+  };
 
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
@@ -56,8 +62,21 @@ const MainContent = () => {
     }
   };
 
+  // Styles based on light or dark theme
+  const themeClass = isDarkTheme ? "dark-theme" : "light-theme";
+
   return (
-      <div className="flex-1 min-h-screen pb-[15vh] relative">
+      <div className={`flex-1 min-h-screen pb-[15vh] relative ${themeClass}`}>
+        {/* Theme Toggle Button */}
+        <div className="absolute top-0 left-0 p-5">
+          <button
+              onClick={handleThemeToggle}
+              className="bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-white px-4 py-2 rounded-full shadow-md transition-colors"
+          >
+            {isDarkTheme ? "Switch to Light Theme" : "Switch to Dark Theme"}
+          </button>
+        </div>
+
         {/* Profile icon placed on top right */}
         <div className="absolute top-0 right-0 p-5">
           <FaUserCircle className="text-4xl cursor-pointer" />
@@ -66,22 +85,19 @@ const MainContent = () => {
         {/* Logo and SEGAT text */}
         <div className="flex flex-col items-center justify-center p-5">
           <img src={logo} alt="Logo" className="w-32 rounded-[50%] mb-3" />
-          <p className="text-5xl font-bold text-slate-600">SEGAT</p>
         </div>
 
         <div className="max-w-[900px] mx-auto">
           {!showResult ? (
               <>
-                {/* Centered text without gradient */}
+                {/* Centered text */}
                 <div className="my-12 text-center p-5">
-                  <p className="text-[60px] font-extrabold text-slate-600 tracking-wide"
+                  <p className="text-[60px] font-extrabold tracking-wide"
                      style={{fontFamily: 'Nunito, sans-serif'}}>
                     Welcome to SEGAT
-                    
                   </p>
-
-                  <p className="text-[28px] text-slate-500 font-medium mt-4">
-                    Get started with Engineering Graphics
+                  <p className="text-[28px] font-medium mt-4">
+                    Your Smart Engineering Graphics Assistant
                   </p>
                 </div>
               </>
@@ -102,7 +118,7 @@ const MainContent = () => {
                   ) : (
                       <div
                           className="result-display text-lg font-[400] leading-[1.8]"
-                          dangerouslySetInnerHTML={{ __html: resultData }}
+                          dangerouslySetInnerHTML={{ __html: cleanResultData(resultData) }}
                       />
                   )}
                 </div>
@@ -110,10 +126,10 @@ const MainContent = () => {
           )}
 
           <div className="absolute bottom-0 w-full max-w-[900px] px-5 mx-auto mt-5">
-            <div className="flex items-center justify-between gap-20 bg-gray-200 py-2 px-5 rounded-full">
+            <div className="flex items-center justify-between gap-20 bg-gray-200 dark:bg-gray-700 py-2 px-5 rounded-full">
               <input
                   type="text"
-                  placeholder="Enter a prompt here..."
+                  placeholder="Enter your Engineering Graphics question...."
                   className="flex-1 bg-transparent border-none outline-none p-2 text-lg"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
@@ -139,14 +155,22 @@ const MainContent = () => {
                 )}
               </div>
             </div>
-            <p className="text-sm my-4 mx-auto text-center font-[500] text-slate-600">
-              SEGAT may display inaccurate info, including about people, so
-              double-check its responses.
+            <p className="text-sm my-4 mx-auto text-center font-[500]">
+              This prompt gives you the desired solution for your problem!! Happy Imagining!!!
             </p>
           </div>
         </div>
       </div>
   );
+};
+
+// Function to clean the resultData by removing unwanted sections and symbols
+const cleanResultData = (data) => {
+  const cleanedData = data
+      .replace(/\*\*/g, "") // Remove double asterisks used for bolding
+      .replace(/Diagram[^]*$/, ""); // Remove everything after "Diagram"
+
+  return cleanedData;
 };
 
 export default MainContent;
