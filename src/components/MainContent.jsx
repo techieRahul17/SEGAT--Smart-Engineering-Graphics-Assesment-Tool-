@@ -1,16 +1,11 @@
 import React, { useContext } from "react";
 import {
-  FaCode,
-  FaCompass,
-  FaLightbulb,
   FaMicrophone,
   FaUserCircle,
 } from "react-icons/fa";
-import { FaMessage } from "react-icons/fa6";
 import { MdAddPhotoAlternate } from "react-icons/md";
 import { IoMdSend } from "react-icons/io";
 import { Context } from "../context/Context";
-import compass from "../assets/img1.jpg";
 import logo from "../assets/custom-logo.png";
 import Tesseract from "tesseract.js";
 import { storage } from "../firebase";
@@ -55,51 +50,36 @@ const MainContent = () => {
     }
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      onSent();
+    }
+  };
+
   return (
       <div className="flex-1 min-h-screen pb-[15vh] relative">
-        <div className="flex items-center justify-between text-xl p-5 text-slate-700">
-          <p>SEGAT</p>
-          <img src={logo} alt="" className="w-8 rounded-[50%]" />
-          <FaUserCircle />
+        {/* Profile icon placed on top right */}
+        <div className="absolute top-0 right-0 p-5">
+          <FaUserCircle className="text-4xl cursor-pointer" />
+        </div>
+
+        {/* Logo and SEGAT text */}
+        <div className="flex flex-col items-center justify-center p-5">
+          <img src={logo} alt="Logo" className="w-32 rounded-[50%] mb-3" />
         </div>
 
         <div className="max-w-[900px] mx-auto">
           {!showResult ? (
               <>
-                <div className="my-12 text-[56px] text-slate-500 font-semibold p-5">
-                  <p>
-                <span className="bg-gradient-to-r from-[#368ddd] to-[#ff5546] bg-clip-text text-transparent">
-                  Hello, Engineer!!
-                </span>
+                {/* Centered text without gradient */}
+                <div className="my-12 text-center p-5">
+                  <p className="text-[60px] font-extrabold text-slate-600 tracking-wide"
+                     style={{fontFamily: 'Nunito, sans-serif'}}>
+                    Welcome to SEGAT
                   </p>
-                  <p className="text-slate-400">Ready to imagine?</p>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-5">
-                  <div className="h-[200px] p-4 bg-gray-200 rounded-lg relative cursor-pointer hover:bg-gray-300">
-                    <p className="text-slate-700 text-lg">
-                      What is Engineering Graphics?
-                    </p>
-                    <FaCompass className="text-4xl p-1 absolute bottom-2 right-2" />
-                  </div>
-                  <div className="h-[200px] p-4 bg-gray-200 rounded-lg relative cursor-pointer hover:bg-gray-300">
-                    <p className="text-slate-700 text-lg">
-                      What is isometric projection?
-                    </p>
-                    <FaLightbulb className="text-4xl p-1 absolute bottom-2 right-2" />
-                  </div>
-                  <div className="h-[200px] p-4 bg-gray-200 rounded-lg relative cursor-pointer hover:bg-gray-300">
-                    <p className="text-slate-700 text-lg">
-                      Who is the Father of EG?
-                    </p>
-                    <FaMessage className="text-4xl p-1 absolute bottom-2 right-2" />
-                  </div>
-                  <div className="h-[200px] p-4 bg-gray-200 rounded-lg relative cursor-pointer hover:bg-gray-300">
-                    <p className="text-slate-700 text-lg">
-                      Which subject does EG belong to?
-                    </p>
-                    <FaCode className="text-4xl p-1 absolute bottom-2 right-2" />
-                  </div>
+                  <p className="text-[28px] text-slate-500 font-medium mt-4">
+                    Your Smart Engineering Graphics Assistant
+                  </p>
                 </div>
               </>
           ) : (
@@ -110,8 +90,6 @@ const MainContent = () => {
                 </div>
 
                 <div className="flex items-start gap-5">
-                  <img src={compass} alt="" className="w-8 rounded-[50%]" />
-
                   {loading ? (
                       <div className="w-full flex flex-col gap-2">
                         <hr className="rounded-md border-none bg-gray-200 bg-gradient-to-r from-[#81cafe] via-[#ffffff] to-[#81cafe] p-4 animate-scroll-bg" />
@@ -132,10 +110,11 @@ const MainContent = () => {
             <div className="flex items-center justify-between gap-20 bg-gray-200 py-2 px-5 rounded-full">
               <input
                   type="text"
-                  placeholder="Enter a prompt here..."
+                  placeholder="Enter Engineering Graphics questions...."
                   className="flex-1 bg-transparent border-none outline-none p-2 text-lg"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
+                  onKeyPress={handleKeyPress}
               />
               <div className="flex gap-4 items-center">
                 <input
