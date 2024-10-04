@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import {myFunction} from "../firebase.js"
 import {
   FaMicrophone,
   FaUserCircle,
@@ -10,7 +11,7 @@ import logo from "../assets/custom-logo.png";
 import Tesseract from "tesseract.js";
 import { storage } from "../firebase";
 import { ref, uploadBytes } from "firebase/storage";
-
+2
 const MainContent = () => {
   const {
     input,
@@ -24,6 +25,23 @@ const MainContent = () => {
 
   const [isDarkTheme, setIsDarkTheme] = useState(false); // Managing theme state
 
+  const handleSend = () => {
+    onSent();
+    myFunction({ question: input })  // Send the input question to the function
+        .then(result => {
+          // Access the svg and answer from result.data
+          const svg = result.data.svg; // Ensure this corresponds to your Firebase function's response
+          const answer = result.data.answer;
+
+          console.log("SVG:", svg); // Log the SVG
+          console.log("Answer:", answer); // Log the answer
+
+
+        })
+        .catch(error => {
+          console.error("Error calling Firebase function: ", error);
+        });
+  };
   const handleThemeToggle = () => {
     setIsDarkTheme((prevTheme) => !prevTheme); // Toggle theme state
   };
@@ -58,7 +76,7 @@ const MainContent = () => {
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      onSent();
+      handleSend();
     }
   };
 
@@ -166,6 +184,8 @@ const MainContent = () => {
 
 // Function to clean the resultData by removing unwanted sections and symbols
 const cleanResultData = (data) => {
+  if (typeof data !== 'string') return '';
+
   const cleanedData = data
       .replace(/\*\*/g, "") // Remove double asterisks used for bolding
       .replace(/Diagram[^]*$/, ""); // Remove everything after "Diagram"

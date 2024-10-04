@@ -4,7 +4,7 @@
  * $ npm install @google/generative-ai
  */
 
-import {
+/*import {
   GoogleGenerativeAI,
   HarmCategory,
   HarmBlockThreshold,
@@ -23,7 +23,7 @@ const generationConfig = {
   topK: 64,
   maxOutputTokens: 8192,
   responseMimeType: "text/plain",
-};
+};*/
 
 // Helper function to check if the prompt is related to engineering graphics
 function isEngineeringGraphicsRelated(prompt) {

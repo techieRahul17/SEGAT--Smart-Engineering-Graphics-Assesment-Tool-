@@ -17,13 +17,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Initialize Firestore
-const db = getFirestore(app); // Initialize Firestore
+export const db = getFirestore(app); // Initialize Firestore
 
 // Initialize Firebase Storage
-const storage = getStorage(app); // Initialize Storage
+export const storage = getStorage(app); // Initialize Storage
+
 // Initialize Firebase
 
 const functions = getFunctions(app); // Exporting the functions instance
-const myFunction = httpsCallable(functions, 'parseQuestion');
-
-export { db, storage, myFunction }; // Export Firestore and Storage instances for use in other files
+export const myFunction = httpsCallable(functions, 'parseQuestion');

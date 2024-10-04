@@ -1,12 +1,13 @@
 // src/context/Context.jsx
 import { createContext, useState } from "react";
-import run from "../config/gemini";
-import { db, storage } from "../firebase"; // Import Firestore and Storage
+import {db, myFunction, storage} from "../firebase"; // Import Firestore and Storage
 import { collection, addDoc, getDocs } from "firebase/firestore"; // Import Firestore methods
 import { ref, uploadBytes } from "firebase/storage"; // Import Storage methods
 import Tesseract from "tesseract.js"; // Make sure to import Tesseract.js
 
 export const Context = createContext();
+
+
 
 const ContextProvider = (props) => {
     const [input, setInput] = useState("");
@@ -14,7 +15,7 @@ const ContextProvider = (props) => {
     const [prevPrompt, setPrevPrompt] = useState([]);
     const [showResult, setShowResult] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [resultData, setResultData] = useState("");
+    const [resultData, setResultData] = useState({ svg: null, answer: null });
 
     const savePrompt = async (prompt) => {
         try {
@@ -60,41 +61,69 @@ const ContextProvider = (props) => {
         }
     };
 
+
     const newChat = () => {
         setLoading(false);
         setShowResult(false);
+        setResultData({ svg: null, answer: null });
     };
 
-    // Define delayPara function to handle typing effect
-    const delayPara = (i, word) => {
+    const delayPara = (index, word) => {
         setTimeout(() => {
-            setResultData((prevData) => prevData + word); // Append word to the result data
-        }, i * 100); // Adjust the delay as needed (100ms per word here)
+            setResultData((prev) => ({
+                ...prev,
+                answer: (prev.answer || "") + word
+            }));
+        }, 10 * index);
     };
 
     const onSent = async (prompt) => {
-        setResultData("");
+        setResultData({ svg: null, answer: null });
         setLoading(true);
         setShowResult(true);
 
         let response;
 
         if (prompt !== undefined) {
-            response = await run(prompt);
+            response = await myFunction({ question: prompt });
             await savePrompt(prompt);
             setRecentPrompt(prompt);
         } else {
             setPrevPrompt((prev) => [...prev, input]);
             setRecentPrompt(input);
             await savePrompt(input);
-            response = await run(input);
+            response = await myFunction({ question: input });
         }
 
-        setResultData(response); // Set the formatted response with highlighted headings
+        // Process the answer
+        let answer = response.data.answer;
+        let responseArray = answer.split("**");
+        let newResponse = "";
+
+        for (let i = 0; i < responseArray.length; i++) {
+            if (i === 0 || i % 2 !== 1) {
+                newResponse += responseArray[i];
+            } else {
+                newResponse += "<b>" + responseArray[i] + "</b>";
+            }
+        }
+
+        let newResponse2 = newResponse.split("*").join("</br>");
+        let newResponseArray = newResponse2.split(" ");
+
+        for (let i = 0; i < newResponseArray.length; i++) {
+            const nextWord = newResponseArray[i];
+            delayPara(i, nextWord + " ");
+        }
+
+        setResultData((prev) => ({
+            ...prev,
+            svg: response.data.svg
+        }));
+
         setLoading(false);
         setInput("");
     };
-
 
     const contextValue = {
         input,
@@ -108,8 +137,8 @@ const ContextProvider = (props) => {
         resultData,
         onSent,
         newChat,
-        loadPreviousPrompts, // Add the method to load previous prompts
-        handleImageUpload, // Add the image upload function
+        loadPreviousPrompts,
+        handleImageUpload,
     };
 
     return (
