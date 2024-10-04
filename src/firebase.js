@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore"; // Import Firestore
 import { getStorage } from "firebase/storage"; // Import Storage
+import { getFunctions, httpsCallable } from "firebase/functions"; // Importing getFunctions and httpsCallable
 
 const firebaseConfig = {
     apiKey: "AIzaSyDzSuU7XZhwPNbX8dRh7MiClK9213nobZQ",
@@ -20,5 +21,9 @@ const db = getFirestore(app); // Initialize Firestore
 
 // Initialize Firebase Storage
 const storage = getStorage(app); // Initialize Storage
+// Initialize Firebase
 
-export { db, storage }; // Export Firestore and Storage instances for use in other files
+const functions = getFunctions(app); // Exporting the functions instance
+const myFunction = httpsCallable(functions, 'parseQuestion');
+
+export { db, storage, myFunction }; // Export Firestore and Storage instances for use in other files

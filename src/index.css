@@ -2,6 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom dark and light theme setup */
+:root {
+  --background-light: #f0f0f0;
+  --text-light: #111827;
+  --primary-light: #6366f1;
+
+  --background-dark: #1f2937;
+  --text-dark: #f9fafb;
+  --primary-dark: #3b82f6;
+}
+
+/* Light Theme */
+html {
+  background-color: var(--background-light);
+  color: var(--text-light);
+}
+
+body {
+  @apply text-base font-sans;
+  background-color: var(--background-light);
+  color: var(--text-light);
+}
+
+/* Dark Theme */
+html.dark {
+  background-color: var(--background-dark);
+  color: var(--text-dark);
+}
+
+body.dark {
+  @apply text-base font-sans;
+  background-color: var(--background-dark);
+  color: var(--text-dark);
+}
+
+/* Add transitions for smooth theme switching */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Button and other primary elements */
+.button {
+  @apply px-4 py-2 rounded font-semibold;
+  background-color: var(--primary-light);
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+html.dark .button {
+  background-color: var(--primary-dark);
+}
+
 /* Hide scrollbar for WebKit-based browsers (Chrome, Safari) */
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;
@@ -20,4 +72,13 @@
 /* Apply the above rules */
 .scrollbar-hidden {
   overflow: auto; /* Make sure overflow is set to auto or scroll */
+}
+
+/* You can also extend the scrollbar styles if needed */
+.scrollbar-thumb {
+  background-color: #9ca3af; /* Gray scrollbar */
+}
+
+html.dark .scrollbar-thumb {
+  background-color: #6b7280; /* Darker scrollbar for dark theme */
 }

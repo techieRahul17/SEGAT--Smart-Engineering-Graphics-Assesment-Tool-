@@ -66,6 +66,7 @@ const MainContent = () => {
         {/* Logo and SEGAT text */}
         <div className="flex flex-col items-center justify-center p-5">
           <img src={logo} alt="Logo" className="w-32 rounded-[50%] mb-3" />
+          <p className="text-5xl font-bold text-slate-600">SEGAT</p>
         </div>
 
         <div className="max-w-[900px] mx-auto">
@@ -76,9 +77,11 @@ const MainContent = () => {
                   <p className="text-[60px] font-extrabold text-slate-600 tracking-wide"
                      style={{fontFamily: 'Nunito, sans-serif'}}>
                     Welcome to SEGAT
+                    
                   </p>
+
                   <p className="text-[28px] text-slate-500 font-medium mt-4">
-                    Your Smart Engineering Graphics Assistant
+                    Get started with Engineering Graphics
                   </p>
                 </div>
               </>
@@ -110,7 +113,7 @@ const MainContent = () => {
             <div className="flex items-center justify-between gap-20 bg-gray-200 py-2 px-5 rounded-full">
               <input
                   type="text"
-                  placeholder="Enter Engineering Graphics questions...."
+                  placeholder="Enter a prompt here..."
                   className="flex-1 bg-transparent border-none outline-none p-2 text-lg"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
