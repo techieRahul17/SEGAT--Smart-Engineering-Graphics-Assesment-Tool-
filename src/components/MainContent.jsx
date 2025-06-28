@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import {
+<<<<<<< HEAD
   FaCode,
   FaCompass,
   FaLightbulb,
@@ -11,13 +12,24 @@ import { MdAddPhotoAlternate } from "react-icons/md";
 import { IoMdSend } from "react-icons/io";
 import { Context } from "../context/Context";
 import compass from "../assets/img1.jpg";
+=======
+  FaMicrophone,
+  FaUserCircle,
+} from "react-icons/fa";
+import { MdAddPhotoAlternate } from "react-icons/md";
+import { IoMdSend } from "react-icons/io";
+import { Context } from "../context/Context";
+>>>>>>> main/frontend
 import logo from "../assets/custom-logo.png";
 import Tesseract from "tesseract.js";
 import { storage } from "../firebase";
 import { ref, uploadBytes } from "firebase/storage";
+<<<<<<< HEAD
 import {myFunction} from "../firebase.js"
 
 
+=======
+>>>>>>> main/frontend
 
 const MainContent = () => {
   const {
@@ -58,6 +70,7 @@ const MainContent = () => {
     }
   };
 
+<<<<<<< HEAD
   const handleSend = () => {
         myFunction({ question: input })  // Send the input question to the function
             .then(result => {
@@ -82,11 +95,30 @@ const MainContent = () => {
           <p>SEGAT</p>
           <img src={logo} alt="" className="w-8 rounded-[50%]" />
           <FaUserCircle />
+=======
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      onSent();
+    }
+  };
+
+  return (
+      <div className="flex-1 min-h-screen pb-[15vh] relative">
+        {/* Profile icon placed on top right */}
+        <div className="absolute top-0 right-0 p-5">
+          <FaUserCircle className="text-4xl cursor-pointer" />
+        </div>
+
+        {/* Logo and SEGAT text */}
+        <div className="flex flex-col items-center justify-center p-5">
+          <img src={logo} alt="Logo" className="w-32 rounded-[50%] mb-3" />
+>>>>>>> main/frontend
         </div>
 
         <div className="max-w-[900px] mx-auto">
           {!showResult ? (
               <>
+<<<<<<< HEAD
                 <div className="my-12 text-[56px] text-slate-500 font-semibold p-5">
                   <p>
                 <span className="bg-gradient-to-r from-[#368ddd] to-[#ff5546] bg-clip-text text-transparent">
@@ -94,6 +126,17 @@ const MainContent = () => {
                 </span>
                   </p>
                   <p className="text-slate-400">Ready to imagine?</p>
+=======
+                {/* Centered text without gradient */}
+                <div className="my-12 text-center p-5">
+                  <p className="text-[60px] font-extrabold text-slate-600 tracking-wide"
+                     style={{fontFamily: 'Nunito, sans-serif'}}>
+                    Welcome to SEGAT
+                  </p>
+                  <p className="text-[28px] text-slate-500 font-medium mt-4">
+                    Your Smart Engineering Graphics Assistant
+                  </p>
+>>>>>>> main/frontend
                 </div>
               </>
           ) : (
@@ -104,6 +147,7 @@ const MainContent = () => {
                 </div>
 
                 <div className="flex items-start gap-5">
+<<<<<<< HEAD
                   <img src={compass} alt="" className="w-8 rounded-[50%]" />
 
                   {loading ? (
@@ -111,6 +155,13 @@ const MainContent = () => {
                         <hr className="rounded-md border-none bg-gray-200 bg-gradient-to-r from-[#080000] via-[#ffffff] to-[#080000] p-4 animate-scroll-bg" />
                         <hr className="rounded-md border-none bg-gray-200 bg-gradient-to-r from-[#080000] via-[#ffffff] to-[#080000] p-4 animate-scroll-bg" />
                         <hr className="rounded-md border-none bg-gray-200 bg-gradient-to-r from-[#080000] via-[#ffffff] to-[#080000] p-4 animate-scroll-bg" />
+=======
+                  {loading ? (
+                      <div className="w-full flex flex-col gap-2">
+                        <hr className="rounded-md border-none bg-gray-200 bg-gradient-to-r from-[#81cafe] via-[#ffffff] to-[#81cafe] p-4 animate-scroll-bg" />
+                        <hr className="rounded-md border-none bg-gray-200 bg-gradient-to-r from-[#81cafe] via-[#ffffff] to-[#81cafe] p-4 animate-scroll-bg" />
+                        <hr className="rounded-md border-none bg-gray-200 bg-gradient-to-r from-[#81cafe] via-[#ffffff] to-[#81cafe] p-4 animate-scroll-bg" />
+>>>>>>> main/frontend
                       </div>
                   ) : (
                       <div
@@ -124,6 +175,7 @@ const MainContent = () => {
 
           <div className="absolute bottom-0 w-full max-w-[900px] px-5 mx-auto mt-5">
             <div className="flex items-center justify-between gap-20 bg-gray-200 py-2 px-5 rounded-full">
+<<<<<<< HEAD
             <input
                   type="text"
                   placeholder="Enter a prompt here..."
@@ -136,6 +188,16 @@ const MainContent = () => {
                     }
                   }}
                   />
+=======
+              <input
+                  type="text"
+                  placeholder="Enter Engineering Graphics questions...."
+                  className="flex-1 bg-transparent border-none outline-none p-2 text-lg"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyPress={handleKeyPress}
+              />
+>>>>>>> main/frontend
               <div className="flex gap-4 items-center">
                 <input
                     type="file"

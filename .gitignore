@@ -23,6 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 .env
 >>>>>>> e1fef63 (added backend)
+=======
+.env
+>>>>>>> main/frontend
