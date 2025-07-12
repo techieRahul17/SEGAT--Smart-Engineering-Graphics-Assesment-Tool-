@@ -144,13 +144,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
         <sub><b>Balamurugan</b></sub>
       </a>
     </td>
-    <td align="center">
-      <a href="https://github.com/Ramcharan-Swaminathan">
-        <img src="https://github.com/Ramcharan-Swaminathan.png" width="100px;" alt="Ramcharan Swaminathan"/>
-        <br />
-        <sub><b>Ramcharan Swaminathan</b></sub>
-      </a>
-    </td>
   </tr>
 </table>
 
